@@ -1,0 +1,19 @@
+<!-- <mat-expansion-panel *ngIf="categories">
+  <mat-expansion-panel-header>
+    <mat-panel-title> Devices </mat-panel-title>
+  </mat-expansion-panel-header>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let category of categories" [value]="category">
+      <button (click)="onShowCategory(category)">{{ category }}</button>
+    </mat-list-option>
+  </mat-selection-list>
+
+</mat-expansion-panel> -->
+
+<mat-selection-list [multiple]="false">
+  <mat-list-option *ngFor="let category of categories" [value]="category">
+    <button (click)="onShowCategory(category)" style="text-align: left">
+      {{ category }}
+    </button>
+  </mat-list-option>
+</mat-selection-list>
