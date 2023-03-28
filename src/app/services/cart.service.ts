@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Cart, CartItem } from '../models/cart.model';
@@ -10,6 +10,16 @@ export class CartService {
   cart = new BehaviorSubject<Cart>({ items: [] });
 
   constructor(private _snackBar: MatSnackBar) {}
+
+  public isItemAvailableInCard(item: any): boolean {
+    const items = this.cart.value.items;
+    const itemIDs = items.map((i) => i.id);
+
+    console.log(item.product.id);
+    console.log(itemIDs.includes(item.product.id));
+
+    return itemIDs.includes(item.product.id);
+  }
 
   addToCart(item: CartItem): void {
     const items = [...this.cart.value.items];
@@ -23,6 +33,19 @@ export class CartService {
 
     this.cart.next({ items });
     this._snackBar.open('1 item added to cart.', 'Ok', { duration: 3000 });
+  }
+
+  removeFromCartIcon(item: CartItem) {
+    console.log('came');
+
+    const filteredItems = this.cart.value.items.filter(
+      (_item) => _item.id !== item.id
+    );
+
+    this.cart.next({ items: filteredItems });
+    this._snackBar.open('1 item removed from cart.', 'Ok', {
+      duration: 3000,
+    });
   }
 
   removeFromCart(item: CartItem, updateCart = true): CartItem[] {

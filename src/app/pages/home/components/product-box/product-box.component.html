@@ -24,8 +24,12 @@
       </div>
       <div class="flex justify-between">
         <span class="text-red-400">{{ product.price | currency }}</span>
-        <button (click)="onAddToCart()">
-          <mat-icon [style.color]="bgColor" (click)="changeColor()"
+
+        <button (click)="onCartClicked()">
+          <mat-icon
+            [style.color]="
+              cartService.isItemAvailableInCard(this) ? 'yellowgreen' : 'gray'
+            "
             >shopping_cart</mat-icon
           >
         </button>

@@ -66,6 +66,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  onRemoveFromCartIcon(product: Product): void {
+    this.cartService.removeFromCartIcon({
+      product: product.image,
+      name: product.title,
+      price: product.price,
+      quantity: 1,
+      id: product.id,
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.productsSubscription) {
       this.productsSubscription.unsubscribe();
