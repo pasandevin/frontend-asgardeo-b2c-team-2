@@ -19,7 +19,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { ProductsHeaderComponent } from './pages/home/components/products-header/products-header.component';
 import { ProductBoxComponent } from './pages/home/components/product-box/product-box.component';
 import { FiltersComponent } from './pages/home/components/filters/filters.component';
@@ -28,6 +27,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreService } from './services/store.service';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { StoreService } from './services/store.service';
     MatSnackBarModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    OAuthModule.forRoot(),
   ],
   providers: [CartService, StoreService],
   bootstrap: [AppComponent],
