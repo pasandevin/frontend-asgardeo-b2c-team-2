@@ -10,6 +10,8 @@ export class HeaderComponent {
   private _cart: Cart = { items: [] };
   itemsQuantity = 0;
 
+  @Input() sendCartClearMessage = new EventEmitter<boolean>();
+
   @Input()
   get cart(): Cart {
     return this._cart;
@@ -31,5 +33,9 @@ export class HeaderComponent {
 
   onClearCart(): void {
     this.cartService.clearCart();
+  }
+
+  onCartClearMessage(): void {
+    this.sendCartClearMessage.emit(true);
   }
 }
