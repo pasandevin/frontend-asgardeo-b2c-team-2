@@ -19,8 +19,16 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   constructor(private storeService: StoreService) {}
 
-  //api call here
+  //code
 
+  services: string[] = ['Smartphones', 'Tablets', 'Wearable devices'];
+  devices: string[] = [
+    'Wireless services',
+    'Internet services',
+    'Cloud services',
+  ];
+
+  //api call here
   ngOnInit(): void {
     this.categoriesSubscription = this.storeService
       .getAllCategories()
@@ -30,7 +38,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   onShowCategory(category: string): void {
-    this.showCategory.next(category);
+    // this.showCategory.next(category);
+    this.showCategory.emit(category);
   }
 
   ngOnDestroy(): void {

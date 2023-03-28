@@ -13,11 +13,11 @@
     ></app-products-header>
     <mat-grid-list
       *ngIf="products && products.length"
-      gutterSize="16"
+      gutterSize="26"
       [cols]="cols"
       [rowHeight]="rowHeight"
     >
-      <mat-grid-tile *ngFor="let product of products">
+      <mat-grid-tile *ngFor="let product of products" style="max-width: 200rem">
         <div
           (addToCart)="onAddToCart($event)"
           app-product-box
