@@ -28,6 +28,8 @@ import { CartService } from './services/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreService } from './services/store.service';
 import { CoreModule } from './core/core.module';
+import { RouterModule } from '@angular/router';
+import { ShouldLoginComponent } from './should-login.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,12 @@ import { CoreModule } from './core/core.module';
     MatSnackBarModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    RouterModule.forRoot([
+      { path: '', redirectTo: 'basics/home', pathMatch: 'full' },
+      // Note: this way of module loading requires this in your tsconfig.json: "module": "esnext"
+      { path: 'should-login', component: ShouldLoginComponent }
+  ], {})
   ],
   providers: [CartService, StoreService],
   bootstrap: [AppComponent],
