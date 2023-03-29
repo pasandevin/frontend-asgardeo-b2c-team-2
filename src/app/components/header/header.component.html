@@ -2,10 +2,12 @@
   <a routerLink="home">Kfone</a>
 
   <div>
-    <button mat-stroked-button color="primary" style="margin-right: 10px" (click)="login()">
+    <button mat-stroked-button color="primary" style="margin-right: 10px" (click)="login()"*ngIf="(isAuthenticated$ | async) === false">
       Login
     </button>
-    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+    <!-- <span *ngIf="isAuthenticated$ | async" id="email">{{email}}</span> -->
+
+    <button mat-raised-button color="primary" *ngIf="isAuthenticated$ | async" href="#"  (click)="logout()">Logout</button>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon
         [matBadge]="itemsQuantity"

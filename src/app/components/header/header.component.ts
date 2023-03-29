@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
+import { Observable } from 'rxjs';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from '../../core/auth.service';
@@ -8,7 +9,9 @@ import { AuthService } from '../../core/auth.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
+  public isAuthenticated$: Observable<boolean>;
+
   private _cart: Cart = { items: [] };
   itemsQuantity = 0;
 
@@ -27,7 +30,13 @@ export class HeaderComponent {
       .reduce((prev, curent) => prev + curent, 0);
   }
 
-  constructor(private cartService: CartService,private authService: AuthService) {}
+  constructor(private cartService: CartService,private authService: AuthService) {
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
+
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   getTotal(items: CartItem[]): number {
     return this.cartService.getTotal(items);
