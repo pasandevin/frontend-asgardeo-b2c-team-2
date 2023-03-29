@@ -12,6 +12,8 @@ export class HeaderComponent {
   private _cart: Cart = { items: [] };
   itemsQuantity = 0;
 
+  @Input() sendCartClearMessage = new EventEmitter<boolean>();
+
   @Input()
   get cart(): Cart {
     return this._cart;
@@ -43,4 +45,7 @@ logout() : void
 {
   this.authService.logout();
 }
+  onCartClearMessage(): void {
+    this.sendCartClearMessage.emit(true);
+  }
 }
