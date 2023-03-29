@@ -1,30 +1,42 @@
-import { NgModule } from '@angular/core';
-import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
+import { APP_INITIALIZER, ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage } from 'angular-oauth2-oidc';
+import { authAppInitializerFactory } from './auth-app-initializer.factory';
+import { authConfig } from './auth-config';
+
+import { authModuleConfig } from './auth-module-config';
+import { AuthService } from './auth.service';
+
+export function storageFactory(): OAuthStorage {
+  return localStorage;
+}
 
 @NgModule({
-  imports: [OAuthModule.forRoot()],
+  imports: [
+    HttpClientModule,
+    OAuthModule.forRoot(),
+  ],
+  providers: [
+    AuthService
+  ],
 })
-export class AppModule {
-  constructor(private oauthService: OAuthService) {
-    this.oauthService.configure({
-      issuer: 'https://api.asgardeo.io/t/dinukath',
-      clientId: 'i6I29oV4bSaa5g5Vx043SSAUMJka', // The "Auth Code + PKCE" client
-      responseType: 'code',
-      redirectUri: 'https://localhost:3000',
-      tokenEndpoint: 'https://api.asgardeo.io/t/dinukath/oauth2/token',
-      skipIssuerCheck: true,
-      logoutUrl: 'https://api.asgardeo.io/t/dinukath/oidc/logout',
-      postLogoutRedirectUri: 'http://localhost:3000/',
-      scope: 'openid profile', // Ask offline_access to support refresh token refreshes
-      useSilentRefresh: false, // Needed for Code Flow to suggest using iframe-based refreshes
-      silentRefreshTimeout: 5000, // For faster testing
-      timeoutFactor: 0.25, // For faster testing
-      sessionChecksEnabled: true,
-      showDebugInformation: true, // Also requires enabling "Verbose" level in devtools
-      clearHashAfterLogin: false,
-      nonceStateSeparator : 'semicolon'
-    });
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+export class CoreModule {
+  static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        { provide: APP_INITIALIZER, useFactory: authAppInitializerFactory, deps: [AuthService], multi: true },
+        { provide: AuthConfig, useValue: authConfig },
+        { provide: OAuthModuleConfig, useValue: authModuleConfig },
+        { provide: OAuthStorage, useFactory: storageFactory },
+      ]
+    };
+  }
+
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    if (parentModule) {
+      throw new Error('CoreModule is already loaded. Import it in the AppModule only');
+    }
   }
 }
 

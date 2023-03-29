@@ -27,7 +27,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreService } from './services/store.service';
-import { OAuthModule } from 'angular-oauth2-oidc';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,7 @@ import { OAuthModule } from 'angular-oauth2-oidc';
     MatSnackBarModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    OAuthModule.forRoot(),
+    CoreModule.forRoot()
   ],
   providers: [CartService, StoreService],
   bootstrap: [AppComponent],
