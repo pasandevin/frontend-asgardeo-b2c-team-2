@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 import { Cart, CartItem } from 'src/app/models/cart.model';
 import { CartService } from 'src/app/services/cart.service';
+import { AuthService } from '../../core/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +27,7 @@ export class HeaderComponent {
       .reduce((prev, curent) => prev + curent, 0);
   }
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService,private authService: AuthService) {}
 
   getTotal(items: CartItem[]): number {
     return this.cartService.getTotal(items);
@@ -35,6 +37,14 @@ export class HeaderComponent {
     this.cartService.clearCart();
   }
 
+  login() : void
+{
+  this.authService.login();
+}
+logout() : void
+{
+  this.authService.logout();
+}
   onCartClearMessage(): void {
     this.sendCartClearMessage.emit(true);
   }
