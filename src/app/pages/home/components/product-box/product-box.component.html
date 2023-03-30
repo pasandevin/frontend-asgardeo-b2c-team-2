@@ -1,5 +1,5 @@
 <mat-card
-  *ngIf="product"
+  *ngIf="device"
   [ngClass]="{ 'text-center': !fullWidthMode }"
   style="padding-bottom: 10%; padding-top: 10%"
 >
@@ -7,23 +7,23 @@
     <img
       class="mb-1 mx-auto"
       [ngClass]="{ 'h-[180px]': !fullWidthMode, 'h-[3400px]': fullWidthMode }"
-      [src]="product.image"
+      [src]="device.Name"
     />
     <div
       class="w-full"
       [ngClass]="{ 'px-8 flex flex-col justify-between': fullWidthMode }"
     >
       <div>
-        <h5>{{ product.category }}</h5>
+        <h5>{{ device.Description}}</h5>
         <p>
-          {{ product.title }}
+          {{ device.Brand}}
         </p>
         <p *ngIf="fullWidthMode">
-          {{ product.description }}
+          {{ device.Description }}
         </p>
       </div>
       <div class="flex justify-between">
-        <span class="text-red-400">{{ product.price | currency }}</span>
+        <span class="text-red-400">{{ device.Price | currency }}</span>
 
         <button (click)="onCartClicked()">
           <mat-icon

@@ -25,11 +25,12 @@ import { FiltersComponent } from './pages/home/components/filters/filters.compon
 import { HeaderComponent } from './components/header/header.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CartService } from './services/cart.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { StoreService } from './services/store.service';
 import { CoreModule } from './core/core.module';
 import { RouterModule } from '@angular/router';
 import { ShouldLoginComponent } from './should-login.component';
+import { AuthInterceptor } from './services/auth.httpinterceptor.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import { ShouldLoginComponent } from './should-login.component';
       { path: 'should-login', component: ShouldLoginComponent }
   ], {})
   ],
-  providers: [CartService, StoreService],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },CartService, StoreService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

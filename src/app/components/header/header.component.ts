@@ -57,4 +57,9 @@ logout() : void
   onCartClearMessage(): void {
     this.sendCartClearMessage.emit(true);
   }
+  get email(): string {
+    return this.authService.identityClaims
+    ? (this.authService.identityClaims as any)['given_name']
+    : '-';
+  }
 }

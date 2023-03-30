@@ -1,4 +1,4 @@
-<mat-drawer-container
+<!-- <mat-drawer-container
   [autosize]="true"
   class="min-h-full max-w-7xl mx-auto border-x"
 >
@@ -23,6 +23,43 @@
           (removeFromCartIcon)="onRemoveFromCartIcon($event)"
           app-product-box
           [product]="product"
+          [fullWidthMode]="cols === 1"
+          class="w-full"
+        ></div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+ -->
+
+
+
+<mat-drawer-container
+  [autosize]="true"
+  class="min-h-full max-w-7xl mx-auto border-x"
+>
+  <mat-drawer mode="side" opened class="p-6">
+    <app-filters (showCategory)="onShowCategory($event)"></app-filters>
+  </mat-drawer>
+  <mat-drawer-content class="p-6">
+    <app-products-header
+      (columnsCountChange)="onColumnsCountChange($event)"
+      (itemsCountChange)="onItemsCountChange($event)"
+      (sortChange)="onSortChange($event)"
+    ></app-products-header>
+    <mat-grid-list
+      *ngIf="devices && devices.length"
+      gutterSize="26"
+      [cols]="cols"
+      [rowHeight]="rowHeight"
+    >
+      <mat-grid-tile *ngFor="let device of devices" style="max-width: 200rem">
+        <div
+          (addToCart)="onAddToCart($event)"
+          (removeFromCartIcon)="onRemoveFromCartIcon($event)"
+          app-product-box
+          [device]="device"
           [fullWidthMode]="cols === 1"
           class="w-full"
         ></div>
