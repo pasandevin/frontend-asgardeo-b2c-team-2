@@ -9,8 +9,10 @@ import { AuthService } from '../../core/auth.service';
   selector: 'app-header',
   templateUrl: './header.component.html',
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   public isAuthenticated$: Observable<boolean>;
+
+  nameEmail: string = 'isuru nishadha';
 
   private _cart: Cart = { items: [] };
   itemsQuantity = 0;
@@ -30,9 +32,11 @@ export class HeaderComponent implements OnInit{
       .reduce((prev, curent) => prev + curent, 0);
   }
 
-  constructor(private cartService: CartService,private authService: AuthService) {
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService
+  ) {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
-
   }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
@@ -46,14 +50,12 @@ export class HeaderComponent implements OnInit{
     this.cartService.clearCart();
   }
 
-  login() : void
-{
-  this.authService.login();
-}
-logout() : void
-{
-  this.authService.logout();
-}
+  login(): void {
+    this.authService.login();
+  }
+  logout(): void {
+    this.authService.logout();
+  }
   onCartClearMessage(): void {
     this.sendCartClearMessage.emit(true);
   }
