@@ -21,8 +21,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   //code
 
-  services: string[] = ['Smartphones', 'Tablets', 'Wearable devices'];
-  devices: string[] = [
+  devices: string[] = ['Smartphones', 'Tablets', 'Wearable devices'];
+  services: string[] = [
     'Wireless services',
     'Internet services',
     'Cloud services',
